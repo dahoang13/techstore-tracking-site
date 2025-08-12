@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5VCVRH9W');</script>
+    <!-- End Google Tag Manager -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - Practice Site</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #3498db;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        main {
+            margin-top: 80px;
+        }
+        
+        .page {
+            display: none;
+            min-height: 80vh;
+            padding: 2rem 0;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .btn-success {
+            background: #27ae60;
+        }
+        
+        .btn-success:hover {
+            background: #229954;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #999;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .video-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        
+        .video-player {
+            width: 100%;
+            height: 450px;
+            background: #000;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-content {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .video-controls {
+            margin-top: 1rem;
+        }
+        
+        .video-controls button {
+            margin: 0 0.5rem;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .news-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .news-image {
+            width: 100%;
+            height: 200px;
+            background: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #999;
+        }
+        
+        .news-content {
+            padding: 1.5rem;
+        }
+        
+        .pricing-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .pricing-card {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border-color: #3498db;
+            transform: scale(1.05);
+        }
+        
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .plan-price {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .plan-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .checkout-form {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-total {
+            text-align: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+        
+        .search-bar {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .search-bar input {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .products-grid,
+            .news-grid,
+            .pricing-plans {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VCVRH9W"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <header>
+        <nav class="container">
+            <div class="logo">TechStore</div>
+            <ul>
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('products')">Products</a></li>
+                <li><a href="#" onclick="showPage('videos')">Videos</a></li>
+                <li><a href="#" onclick="showPage('news')">News</a></li>
+                <li><a href="#" onclick="showPage('pricing')">Pricing</a></li>
+            </ul>
+            <div class="cart-icon" onclick="showPage('cart')">
+                🛒 <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <section class="hero">
+                <div class="container">
+                    <h1>Welcome to TechStore</h1>
+                    <p>Discover the latest technology products and services</p>
+                    <a href="#" onclick="showPage('products')" class="btn">Shop Now</a>
+                </div>
+            </section>
+            
+            <section class="container">
+                <h2 class="section-title">Featured Products</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-image">📱</div>
+                        <div class="product-info">
+                            <div class="product-title">Smartphone Pro</div>
+                            <div class="product-price">$899</div>
+                            <button class="btn" onclick="addToCart('smartphone-pro', 'Smartphone Pro', 899)">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">💻</div>
+                        <div class="product-info">
+                            <div class="product-title">Gaming Laptop</div>
+                            <div class="product-price">$1299</div>
+                            <button class="btn" onclick="addToCart('gaming-laptop', 'Gaming Laptop', 1299)">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">🎧</div>
+                        <div class="product-info">
+                            <div class="product-title">Wireless Headphones</div>
+                            <div class="product-price">$199</div>
+                            <button class="btn" onclick="addToCart('headphones', 'Wireless Headphones', 199)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Products Page -->
+        <div id="products" class="page">
+            <section class="container">
+                <h1 class="section-title">Our Products</h1>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products..." id="searchInput" onkeyup="searchProducts()">
+                    <button class="btn" onclick="searchProducts()">Search</button>
+                </div>
+                
+                <div class="products-grid" id="productsGrid">
+                    <div class="product-card">
+                        <div class="product-image">📱</div>
+                        <div class="product-info">
+                            <div class="product-title">Smartphone Pro</div>
+                            <p>Latest flagship smartphone with advanced features</p>
+                            <div class="product-price">$899</div>
+                            <button class="btn" onclick="viewProduct('smartphone-pro')">View Details</button>
+                            <button class="btn btn-success" onclick="addToCart('smartphone-pro', 'Smartphone Pro', 899)">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">💻</div>
+                        <div class="product-info">
+                            <div class="product-title">Gaming Laptop</div>
+                            <p>High-performance laptop for gaming and productivity</p>
+                            <div class="product-price">$1299</div>
+                            <button class="btn" onclick="viewProduct('gaming-laptop')">View Details</button>
+                            <button class="btn btn-success" onclick="addToCart('gaming-laptop', 'Gaming Laptop', 1299)">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">🎧</div>
+                        <div class="product-info">
+                            <div class="product-title">Wireless Headphones</div>
+                            <p>Premium noise-cancelling headphones</p>
+                            <div class="product-price">$199</div>
+                            <button class="btn" onclick="viewProduct('headphones')">View Details</button>
+                            <button class="btn btn-success" onclick="addToCart('headphones', 'Wireless Headphones', 199)">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">⌚</div>
+                        <div class="product-info">
+                            <div class="product-title">Smart Watch</div>
+                            <p>Feature-rich smartwatch for health and fitness</p>
+                            <div class="product-price">$349</div>
+                            <button class="btn" onclick="viewProduct('smartwatch')">View Details</button>
+                            <button class="btn btn-success" onclick="addToCart('smartwatch', 'Smart Watch', 349)">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">📷</div>
+                        <div class="product-info">
+                            <div class="product-title">Digital Camera</div>
+                            <p>Professional DSLR camera for photography</p>
+                            <div class="product-price">$799</div>
+                            <button class="btn" onclick="viewProduct('camera')">View Details</button>
+                            <button class="btn btn-success" onclick="addToCart('camera', 'Digital Camera', 799)">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">🖥️</div>
+                        <div class="product-info">
+                            <div class="product-title">4K Monitor</div>
+                            <p>Ultra-wide 4K monitor for work and gaming</p>
+                            <div class="product-price">$599</div>
+                            <button class="btn" onclick="viewProduct('monitor')">View Details</button>
+                            <button class="btn btn-success" onclick="addToCart('monitor', '4K Monitor', 599)">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Videos Page -->
+        <div id="videos" class="page">
+            <section class="container">
+                <h1 class="section-title">Tech Videos</h1>
+                
+                <div class="video-container">
+                    <div class="video-player">
+                        <div class="video-content" id="videoContent">▶️ Sample Tech Review Video</div>
+                    </div>
+                    <div class="video-controls">
+                        <button class="btn" id="playBtn" onclick="playVideo()">Play</button>
+                        <button class="btn" id="pauseBtn" onclick="pauseVideo()">Pause</button>
+                        <button class="btn" onclick="stopVideo()">Stop</button>
+                        <button class="btn" onclick="muteVideo()">Mute</button>
+                        <button class="btn" onclick="shareVideo()">Share</button>
+                    </div>
+                    <h3>Latest Smartphone Review</h3>
+                    <p>Watch our comprehensive review of the latest smartphones in the market. Learn about features, performance, and value for money.</p>
+                </div>
+                
+                <div class="video-container">
+                    <div class="video-player">
+                        <div class="video-content">🎮 Gaming Setup Tutorial</div>
+                    </div>
+                    <div class="video-controls">
+                        <button class="btn" onclick="playVideo2()">Play</button>
+                        <button class="btn" onclick="pauseVideo2()">Pause</button>
+                        <button class="btn" onclick="stopVideo2()">Stop</button>
+                        <button class="btn" onclick="muteVideo2()">Mute</button>
+                        <button class="btn" onclick="shareVideo2()">Share</button>
+                    </div>
+                    <h3>Ultimate Gaming Setup Guide</h3>
+                    <p>Complete guide to building the perfect gaming setup on any budget. Hardware recommendations and setup tips.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- News Page -->
+        <div id="news" class="page">
+            <section class="container">
+                <h1 class="section-title">Tech News</h1>
+                
+                <div class="news-grid">
+                    <article class="news-card">
+                        <div class="news-image">📱</div>
+                        <div class="news-content">
+                            <h3>New iPhone Model Announced</h3>
+                            <p>Apple has unveiled its latest iPhone model with revolutionary features including improved camera technology and longer battery life...</p>
+                            <button class="btn" onclick="readArticle('iphone-news')">Read More</button>
+                        </div>
+                    </article>
+                    
+                    <article class="news-card">
+                        <div class="news-image">🤖</div>
+                        <div class="news-content">
+                            <h3>AI Technology Breakthrough</h3>
+                            <p>Researchers have achieved a major breakthrough in artificial intelligence that could revolutionize how we interact with technology...</p>
+                            <button class="btn" onclick="readArticle('ai-news')">Read More</button>
+                        </div>
+                    </article>
+                    
+                    <article class="news-card">
+                        <div class="news-image">🚗</div>
+                        <div class="news-content">
+                            <h3>Electric Vehicle Updates</h3>
+                            <p>The electric vehicle market continues to grow with new models and improved charging infrastructure being announced...</p>
+                            <button class="btn" onclick="readArticle('ev-news')">Read More</button>
+                        </div>
+                    </article>
+                    
+                    <article class="news-card">
+                        <div class="news-image">🔒</div>
+                        <div class="news-content">
+                            <h3>Cybersecurity Alert</h3>
+                            <p>New cybersecurity threats have been identified. Learn how to protect your devices and personal information...</p>
+                            <button class="btn" onclick="readArticle('security-news')">Read More</button>
+                        </div>
+                    </article>
+                    
+                    <article class="news-card">
+                        <div class="news-image">🌐</div>
+                        <div class="news-content">
+                            <h3>5G Network Expansion</h3>
+                            <p>Major telecom companies are expanding their 5G networks to reach more cities and rural areas across the country...</p>
+                            <button class="btn" onclick="readArticle('5g-news')">Read More</button>
+                        </div>
+                    </article>
+                    
+                    <article class="news-card">
+                        <div class="news-image">💻</div>
+                        <div class="news-content">
+                            <h3>New Gaming Console Released</h3>
+                            <p>The latest gaming console promises to deliver unprecedented gaming experiences with ray tracing and 8K support...</p>
+                            <button class="btn" onclick="readArticle('gaming-news')">Read More</button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <!-- Pricing Page -->
+        <div id="pricing" class="page">
+            <section class="container">
+                <h1 class="section-title">Choose Your Plan</h1>
+                
+                <div class="pricing-plans">
+                    <div class="pricing-card">
+                        <div class="plan-name">Basic</div>
+                        <div class="plan-price">$9<span style="font-size: 1rem;">/month</span></div>
+                        <ul class="plan-features">
+                            <li>Basic tech support</li>
+                            <li>Email support</li>
+                            <li>Access to knowledge base</li>
+                            <li>1 device coverage</li>
+                        </ul>
+                        <button class="btn" onclick="selectPlan('basic', 9)">Select Plan</button>
+                    </div>
+                    
+                    <div class="pricing-card featured">
+                        <div class="plan-name">Professional</div>
+                        <div class="plan-price">$29<span style="font-size: 1rem;">/month</span></div>
+                        <ul class="plan-features">
+                            <li>Priority tech support</li>
+                            <li>Phone & email support</li>
+                            <li>Advanced troubleshooting</li>
+                            <li>Up to 5 devices</li>
+                            <li>Monthly health checks</li>
+                        </ul>
+                        <button class="btn" onclick="selectPlan('professional', 29)">Select Plan</button>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div class="plan-name">Enterprise</div>
+                        <div class="plan-price">$99<span style="font-size: 1rem;">/month</span></div>
+                        <ul class="plan-features">
+                            <li>24/7 dedicated support</li>
+                            <li>On-site assistance</li>
+                            <li>Custom solutions</li>
+                            <li>Unlimited devices</li>
+                            <li>Data backup & recovery</li>
+                            <li>Security monitoring</li>
+                        </ul>
+                        <button class="btn" onclick="selectPlan('enterprise', 99)">Select Plan</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Cart Page -->
+        <div id="cart" class="page">
+            <section class="container">
+                <h1 class="section-title">Shopping Cart</h1>
+                
+                <div id="cartItems">
+                    <p style="text-align: center; color: #999;">Your cart is empty</p>
+                </div>
+                
+                <div class="cart-total" id="cartTotal" style="display: none;">
+                    Total: $0.00
+                </div>
+                
+                <div style="text-align: center; margin: 2rem 0;" id="checkoutSection" style="display: none;">
+                    <button class="btn btn-success" onclick="showPage('checkout')">Proceed to Checkout</button>
+                    <button class="btn btn-danger" onclick="clearCart()">Clear Cart</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Checkout Page -->
+        <div id="checkout" class="page">
+            <section class="container">
+                <h1 class="section-title">Checkout</h1>
+                
+                <div class="checkout-form">
+                    <h3>Billing Information</h3>
+                    <form id="checkoutForm" onsubmit="processPayment(event)">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="zipCode">ZIP Code</label>
+                            <input type="text" id="zipCode" name="zipCode" required>
+                        </div>
+                        
+                        <h3>Payment Information</h3>
+                        
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="expiryDate">Expiry Date</label>
+                            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cardHolder">Card Holder Name</label>
+                            <input type="text" id="cardHolder" name="cardHolder" required>
+                        </div>
+                        
+                        <div class="cart-total" id="checkoutTotal">
+                            Total: $0.00
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success" style="width: 100%; font-size: 1.2rem; margin-top: 1rem;">Complete Purchase</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TechStore. All rights reserved. | Practice site for GA4 & GTM tracking</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cart functionality
+        let cart = [];
+        let currentVideoPlaying = false;
+        let currentVideo2Playing = false;
+
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update checkout total if on checkout page
+            if (pageId === 'checkout') {
+                updateCheckoutTotal();
+            }
+        }
+
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            
+            updateCartDisplay();
+            
+            // Show confirmation
+            alert(`${name} added to cart!`);
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartDisplay();
+        }
+
+        function updateCartQuantity(id, quantity) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity = parseInt(quantity);
+                if (item.quantity <= 0) {
+                    removeFromCart(id);
+                }
+            }
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const checkoutSection = document.getElementById('checkoutSection');
+            
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #999;">Your cart is empty</p>';
+                cartTotal.style.display = 'none';
+                checkoutSection.style.display = 'none';
+            } else {
+                let itemsHTML = '';
+                let total = 0;
+                
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    itemsHTML += `
+                        <div class="cart-item">
+                            <div>
+                                <h4>${item.name}</h4>
+                                <p>${item.price} each</p>
+                            </div>
+                            <div>
+                                <input type="number" value="${item.quantity}" min="1" 
+                                       onchange="updateCartQuantity('${item.id}', this.value)"
+                                       style="width: 60px; margin-right: 1rem;">
+                                <button class="btn btn-danger" onclick="removeFromCart('${item.id}')">Remove</button>
+                            </div>
+                            <div>${itemTotal.toFixed(2)}</div>
+                        </div>
+                    `;
+                });
+                
+                cartItems.innerHTML = itemsHTML;
+                cartTotal.innerHTML = `Total: ${total.toFixed(2)}`;
+                cartTotal.style.display = 'block';
+                checkoutSection.style.display = 'block';
+            }
+        }
+
+        function clearCart() {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                cart = [];
+                updateCartDisplay();
+            }
+        }
+
+        function updateCheckoutTotal() {
+            const checkoutTotal = document.getElementById('checkoutTotal');
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            checkoutTotal.innerHTML = `Total: ${total.toFixed(2)}`;
+        }
+
+        function processPayment(event) {
+            event.preventDefault();
+            
+            // Simulate payment processing
+            const formData = new FormData(event.target);
+            const orderData = {};
+            for (let [key, value] of formData.entries()) {
+                orderData[key] = value;
+            }
+            
+            // Show processing message
+            alert('Processing payment...');
+            
+            setTimeout(() => {
+                alert('Payment successful! Thank you for your purchase.');
+                cart = [];
+                updateCartDisplay();
+                showPage('home');
+                
+                // Reset form
+                event.target.reset();
+            }, 2000);
+        }
+
+        // Video functionality
+        function playVideo() {
+            const videoContent = document.getElementById('videoContent');
+            const playBtn = document.getElementById('playBtn');
+            
+            if (!currentVideoPlaying) {
+                videoContent.innerHTML = '▶️ Playing: Latest Smartphone Review';
+                videoContent.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
+                currentVideoPlaying = true;
+                playBtn.textContent = 'Playing...';
+            }
+        }
+
+        function pauseVideo() {
+            const videoContent = document.getElementById('videoContent');
+            const playBtn = document.getElementById('playBtn');
+            
+            if (currentVideoPlaying) {
+                videoContent.innerHTML = '⏸️ Paused: Latest Smartphone Review';
+                videoContent.style.background = 'linear-gradient(45deg, #f39c12, #e67e22)';
+                currentVideoPlaying = false;
+                playBtn.textContent = 'Play';
+            }
+        }
+
+        function stopVideo() {
+            const videoContent = document.getElementById('videoContent');
+            const playBtn = document.getElementById('playBtn');
+            
+            videoContent.innerHTML = '⏹️ Stopped: Latest Smartphone Review';
+            videoContent.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+            currentVideoPlaying = false;
+            playBtn.textContent = 'Play';
+        }
+
+        function muteVideo() {
+            alert('Video muted/unmuted');
+        }
+
+        function shareVideo() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Latest Smartphone Review',
+                    text: 'Check out this amazing smartphone review!',
+                    url: window.location.href
+                });
+            } else {
+                alert('Video shared! (Share functionality would work here)');
+            }
+        }
+
+        // Second video functions
+        function playVideo2() {
+            alert('Playing: Gaming Setup Tutorial');
+        }
+
+        function pauseVideo2() {
+            alert('Paused: Gaming Setup Tutorial');
+        }
+
+        function stopVideo2() {
+            alert('Stopped: Gaming Setup Tutorial');
+        }
+
+        function muteVideo2() {
+            alert('Gaming tutorial video muted/unmuted');
+        }
+
+        function shareVideo2() {
+            alert('Gaming tutorial video shared!');
+        }
+
+        // Product functionality
+        function viewProduct(productId) {
+            alert(`Viewing detailed information for: ${productId}`);
+        }
+
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.toLowerCase();
+            alert(`Searching for: ${searchTerm}`);
+        }
+
+        // News functionality
+        function readArticle(articleId) {
+            alert(`Opening article: ${articleId}`);
+        }
+
+        // Pricing functionality
+        function selectPlan(planName, price) {
+            if (confirm(`Select ${planName} plan for ${price}/month?`)) {
+                // Add plan to cart as a subscription
+                cart.push({
+                    id: `plan-${planName}`,
+                    name: `${planName} Plan (Monthly)`,
+                    price: price,
+                    quantity: 1
+                });
+                updateCartDisplay();
+                alert(`${planName} plan added to cart!`);
+            }
+        }
+
+        // Newsletter signup
+        function subscribeNewsletter() {
+            const email = prompt('Enter your email address:');
+            if (email) {
+                alert('Thank you for subscribing to our newsletter!');
+            }
+        }
+
+        // Search functionality
+        function performSearch() {
+            const query = prompt('Enter search term:');
+            if (query) {
+                alert(`Searching for: ${query}`);
+            }
+        }
+
+        // Contact form
+        function submitContact() {
+            alert('Contact form submitted! We will get back to you soon.');
+        }
+
+        // Download functionality
+        function downloadApp() {
+            alert('App download started!');
+        }
+
+        // Social media sharing
+        function shareOnSocial(platform) {
+            alert(`Sharing on ${platform}!`);
+        }
+
+        // Help and support
+        function openHelp() {
+            alert('Opening help center...');
+        }
+
+        function startLiveChat() {
+            alert('Starting live chat with support...');
+        }
+
+        // User account simulation
+        function login() {
+            alert('Login functionality - redirecting to login page...');
+        }
+
+        function register() {
+            alert('Registration functionality - redirecting to signup page...');
+        }
+
+        function logout() {
+            alert('User logged out successfully!');
+        }
+
+        // Wishlist functionality
+        function addToWishlist(productId, productName) {
+            alert(`${productName} added to wishlist!`);
+        }
+
+        // Compare products
+        function addToCompare(productId, productName) {
+            alert(`${productName} added to comparison list!`);
+        }
+
+        // Filter and sort products
+        function filterProducts(category) {
+            alert(`Filtering products by: ${category}`);
+        }
+
+        function sortProducts(sortBy) {
+            alert(`Sorting products by: ${sortBy}`);
+        }
+
+        // Coupon functionality
+        function applyCoupon() {
+            const coupon = prompt('Enter coupon code:');
+            if (coupon) {
+                alert(`Coupon "${coupon}" applied! 10% discount added.`);
+            }
+        }
+
+        // Review functionality
+        function submitReview(productId) {
+            alert(`Submitting review for product: ${productId}`);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+            
+            // Add some sample events for tracking
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn')) {
+                    console.log('Button clicked:', e.target.textContent);
+                }
+            });
+            
+            // Track page views
+            console.log('Page loaded:', window.location.href);
+        });
+
+        // Form tracking
+        document.addEventListener('submit', function(e) {
+            console.log('Form submitted:', e.target.id);
+        });
+
+        // Scroll tracking
+        let scrollTracked = false;
+        window.addEventListener('scroll', function() {
+            if (!scrollTracked && window.scrollY > 500) {
+                console.log('User scrolled past 500px');
+                scrollTracked = true;
+            }
+        });
+
+        // Exit intent simulation
+        document.addEventListener('mouseleave', function(e) {
+            if (e.clientY <= 0) {
+                console.log('Exit intent detected');
+            }
+        });
+    </script>
+</body>
+</html>
